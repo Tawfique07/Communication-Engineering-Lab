@@ -16,38 +16,45 @@ endTime = length(bits)/bitrate;
 time = 0:sampTime:endTime;
 
 index = 1;
+sign = 1; 
+#... Assuming last state was pisitive
+if bits(index) == 1
+	sign = -1*sign;
+endif
 
-for i = 1:length(time)
-	if bits(index)==1
-		modulation(i) = voltage;
-	else
-		modulation(i) = -voltage;
-	endif
+for i=1:length(time)
+	modulation(i) = voltage*sign;
 	if time(i)*bitrate>=index
-		index = index + 1;
+		index = index+1;
+		if index<=length(bits) && bits(index)==1
+			sign = -1*sign;
+		endif
 	endif
 end
 
-
-plot(time, modulation, "LineWidth", 1);
+plot(time, modulation, "LineWidth", 2);
 axis([0 endTime -voltage-5 voltage+5]);
 grid on;
 
 
-#... demodulation
+#...demodulatoin
 
 index = 1;
+previous = voltage;
 
 for i = 1:length(modulation)
-	if modulation(i)==voltage
-		demodulation(index) = 1;
-	else
+	if modulation(i)==previous
 		demodulation(index) = 0;
+	else
+		demodulation(index) = 1;
 	endif
-	
-	if time(i)*bitrate>=index
-		index = index+1;
-	endif	
+	if time(i)*bitrate >= index
+		index = index + 1;
+		previous = modulation(i);
+	endif
 end
 
+
 disp(demodulation);
+
+
