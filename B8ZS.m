@@ -71,10 +71,10 @@ for i=1:length(bits)
 	endfor
 	
 	if cnt==8
-		bits(i+3) = -1;
-		bits(i+4) = 1;
-		bits(i+6) = -1;
-		bits(i+7) = 1;
+		bits(i+2) = -1;
+		bits(i+3) = 1;
+		bits(i+5) = -1;
+		bits(i+6) = 1;
 	endif
 	
 end
