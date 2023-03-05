@@ -44,3 +44,23 @@ plot(time, modulation, "linewidth", 2);
 axis([0 endTime -voltage-5 voltage+5]);
 grid on;
 
+#... demodulation
+
+index = 1;
+prev = -5;
+
+for i= 1:length(modulation)
+	if time(i)*bitrate < index - 1/2
+		if modulation(i) == prev;
+			demodulation(index) = 0;
+		else
+			demodulation(index) = 1;
+		endif
+	endif
+	if time(i)*bitrate >= index
+		index = index+1;
+		prev = -1*modulation(i);
+	endif
+end
+
+disp(demodulation);

@@ -6,7 +6,7 @@ bits = [1 0 1 1 0 0 1];
 
 #... Modulation
 
-bitrate = 3; #... Number of bits per second
+bitrate = 1; #... Number of bits per second
 voltage = 5;
 
 samplingRate = 1000;
@@ -29,7 +29,7 @@ for i = 1:length(time)
 endfor
 
 plot(time, modulation, "LineWidth", 1);
-axis([0 endTime -5 voltage+5]);
+axis([0 endTime -voltage-5 voltage+5]);
 grid on;
 
 #... Demodulation
